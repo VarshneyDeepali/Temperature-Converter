@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta cahrset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>document</title>
+<style>
+*
+{
+padding:0;
+margin:0;
+font-family:'poppins';
+box-sizing:border-box;
+}
+body
+{
+width:100%;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background-color:rgb(238,130,238);
+}
+.wrapper
+{
+background-color:silver;
+border-radius:7px;
+padding:3%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+border:4px solid black;
+opacity:0.5;
+}
+.wrapper h2
+{
+font-weight:600;
+margin-bottom:20px;
+color:blue;
+}
+.wrapper h1
+{
+color:blue;
+font-size:20px;
+}
+input,select
+{
+padding:10px;
+font-size:18px;
+margin-bottom:10px;
+width:150px;
+outline:none;
+border-radius:5px;
+border:1px solid #ccc;
+color:blue;
+border:2px solid grey;
+}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+<h2><u>Temperature Converter</u></h2>
+<h1>(Kelvin,Celcius,Fahrenheit)</h1>
+<div class="temperature">
+<input type="text">
+<select>
+<option selected>Celcius</option>
+<option>Kelvin</option>
+<option>Fahrenheit</option>
+</select>
+</div>
+<div class="result">
+<input type="text" readonly>
+<select>
+<option selected>Celcius</option>
+<option selected>Kelvin</option>
+<option>Fahrenheit</option>
+</select>
+</div>
+</div>
+<script>
+const temperature=document.querySelector(".temperature input");
+const result=document.querySelector(".result input");
+const inputTemperatureUnit=document.querySelector(".temperature select");
+const resultTemperatureUnit=document.querySelector(".result select");
+
+temperature.oninput=function()
+{
+let inputTemperatureUnitValue=inputTemperatureUnit.value;
+let resultTemperatureUnitValue=resultTemperatureUnit.value;
+
+let CelciusToKelvin=inputTemperatureUnitValue==="Celcius" && resultTemperatureUnitValue=="Kelvin";
+let CelciusToFahrenheit=inputTemperatureUnitValue==="Celcius" && resultTemperatureUnitValue==="Fahrenheit";
+
+let KelvinToCelcius=inputTemperatureUnitValue==="Kelvin" && resultTemperatureUnitValue==="Celcius";
+let KelvinToFahrenheit=inputTemperatureUnitValue==="Kelvin" && resultTemperatureUnitValue==="Fahrenheit";
+
+let FahrenheitToCelcius=inputTemperatureUnitValue==="Fahrenheit" && resultTemperatureUnitValue==="Celcius";
+let FahrenheitToKelvin=inputTemperatureUnitValue==="Fahrenheit" && resultTemperatureUnitValue==="Kelvin";
+
+let sameUnits=inputTemperatureUnitValue===resultTemperatureUnitValue;
+
+let inputTemperatureValue=temperature.value;
+let convertTemperature=0;
+
+if(CelciusToKelvin)
+{
+convertTemperature=(inputTemperatureValue*1)+273.15;
+result.value=convertTemperature.toFixed(2);
+}
+else if(CelciusToFahrenheit)
+{
+convertTemperature=(9/5*inputTemperatureValue)+32;
+result.value=convertTemperature.toFixed(2);
+}
+else if(KelvinToFahrenheit)
+{
+convertTemperature=9/5*(inputTemperatureValue-273.15)+32;
+result.value=convertTemperature.toFixed(2);
+}
+else if(KelvinToCelcius)
+{
+convertTemperature=(inputTemperatureValue-273.15);
+result.value=convertTemperature.toFixed(2);
+}
+else if(FahrenheitToCelcius)
+{
+convertTemperature=5/9*(inputTemperatureValue-32);
+result.value=convertTemperature.toFixed(2);
+}
+else if(FahrenheitToKelvin)
+{
+convertTemperature=5/9*(inputTemperatureValue-32)+273.15;
+result.value=convertTemperature.toFixed(2);
+}
+else if(sameUnits)
+{
+result.value=inputTemperatureValue;
+}
+}
+</script>
+</body>
+</html>
